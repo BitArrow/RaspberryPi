@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="LEDSwitch.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LEDSwitch"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ToggleSwitch Grid.Row="0" Name="tsRed" Margin="10" OffContent="Red Off" OnContent="Red On"  Toggled="SwitchToggle" HorizontalAlignment="Right"/>
+                <ToggleSwitch Grid.Row="1" Name="tsGreen" Margin="10" OffContent="Green Off" OnContent="Green On" Toggled="SwitchToggle" HorizontalAlignment="Right"></ToggleSwitch>
+                <ToggleSwitch Grid.Row="2" Name="tsBlue" Margin="10" OffContent="Blue Off" OnContent="Blue On" Toggled="SwitchToggle" HorizontalAlignment="Right"></ToggleSwitch>
+                <Ellipse Grid.Row="0" Grid.Column="1" x:Name="RedLED" Fill="Black" Stroke="Red" Width="25" Height="25" HorizontalAlignment="Left" />
+                <Ellipse Grid.Row="1" Grid.Column="1" x:Name="GreenLED" Fill="Black" Stroke="Green" Width="25" Height="25" HorizontalAlignment="Left" />
+                <Ellipse Grid.Row="2" Grid.Column="1" x:Name="BlueLED" Fill="Black" Stroke="Blue" Width="25" Height="25" HorizontalAlignment="Left" />
+
+                <TextBlock Grid.Row="4" x:Name="GpioStatus" Text="" TextAlignment="Center" FontSize="26.667" />
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
