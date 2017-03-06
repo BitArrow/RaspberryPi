@@ -25,14 +25,6 @@ namespace ReadButtons
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
-        private const int RED_PIN = 5;
-        private const int GREEN_PIN = 6;
-        private const int BLUE_PIN = 13;
-        private const int WHITE_BTN = 12;
-        private const int RED_BTN = 16;
-        private const int GREEN_BTN = 20;
-        private const int BLUE_BTN = 21;
         private GpioPin redPin;
         private GpioPin greenPin;
         private GpioPin bluePin;
@@ -53,10 +45,11 @@ namespace ReadButtons
         {
             if (pin != null)
                 pin.Write(val);
-            
+
             // need to invoke UI updates on the UI thread because this event
             // handler gets invoked on a separate thread.
-            var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+            var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 if (e.Edge == GpioPinEdge.FallingEdge)
                 {
                     led.Fill = blackBrush;
@@ -84,7 +77,7 @@ namespace ReadButtons
                 return;
             }
 
-            List<int> buttons = new List<int>() { WHITE_BTN, RED_BTN, GREEN_BTN, BLUE_BTN };
+            List<int> buttons = new List<int>() { (int)Button.White, (int)Button.Red, (int)Button.Green, (int)Button.Blue };
 
             foreach (var pinNum in buttons)
             {
@@ -98,9 +91,9 @@ namespace ReadButtons
                 btn.ValueChanged += buttonPin_ValueChanged;
             }
 
-            redPin = gpio.OpenPin(RED_PIN);
-            greenPin = gpio.OpenPin(GREEN_PIN);
-            bluePin = gpio.OpenPin(BLUE_PIN);
+            redPin = gpio.OpenPin((int)Led.Red);
+            greenPin = gpio.OpenPin((int)Led.Green);
+            bluePin = gpio.OpenPin((int)Led.Blue);
 
             pinValue = GpioPinValue.High;
 
@@ -132,19 +125,40 @@ namespace ReadButtons
 
             switch (pinNum)
             {
-                case (WHITE_BTN):
-                        SwitchValue(pinVal, null, WhiteBTN, whiteBrush, e);
+                case ((int)Button.White):
+                    SwitchValue(pinVal, null, WhiteBTN, whiteBrush, e);
                     break;
-                case (RED_BTN):
-                        SwitchValue(pinVal, redPin, RedBTN, redBrush, e);
+                case ((int)Button.Red):
+                    SwitchValue(pinVal, redPin, RedBTN, redBrush, e);
                     break;
-                case (GREEN_BTN):
-                        SwitchValue(pinVal, greenPin, GreenBTN, greenBrush, e);
+                case ((int)Button.Green):
+                    SwitchValue(pinVal, greenPin, GreenBTN, greenBrush, e);
                     break;
-                case (BLUE_BTN):
-                        SwitchValue(pinVal, bluePin, BlueBTN, blueBrush, e);
+                case ((int)Button.Blue):
+                    SwitchValue(pinVal, bluePin, BlueBTN, blueBrush, e);
                     break;
             }
         }
-        }
+    }
+
+    /// <summary>
+    /// Enum for button pin values
+    /// </summary>
+    enum Button
+    {
+        White = 12,
+        Red = 16,
+        Green = 20,
+        Blue = 21
+    }
+    
+    /// <summary>
+    /// Enum for led pin values
+    /// </summary>
+    enum Led
+    {
+        Red = 5,
+        Green = 6,
+        Blue = 13
+    }
 }
