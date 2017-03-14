@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace ReadButtons
+namespace LEDMemoryGame
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -37,10 +37,10 @@ namespace ReadButtons
 
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             InitGPIO();
         }
-        
+
         private void SwitchValue(GpioPinValue val, GpioPin pin, Ellipse led, SolidColorBrush brush, GpioPinValueChangedEventArgs e)
         {
             if (pin != null)
@@ -77,7 +77,7 @@ namespace ReadButtons
                 return;
             }
 
-            List<int> buttons = new List<int>() { (int)Button.White, (int)Button.Red, (int)Button.Green, (int)Button.Blue };
+            List<int> buttons = new List<int>() { Button.White, Button.Red, Button.Green, Button.Blue };
 
             foreach (var pinNum in buttons)
             {
@@ -91,9 +91,9 @@ namespace ReadButtons
                 btn.ValueChanged += buttonPin_ValueChanged;
             }
 
-            redPin = gpio.OpenPin((int)Led.Red);
-            greenPin = gpio.OpenPin((int)Led.Green);
-            bluePin = gpio.OpenPin((int)Led.Blue);
+            redPin = gpio.OpenPin(LED.Red);
+            greenPin = gpio.OpenPin(LED.Green);
+            bluePin = gpio.OpenPin(LED.Blue);
 
             pinValue = GpioPinValue.High;
 
@@ -125,40 +125,19 @@ namespace ReadButtons
 
             switch (pinNum)
             {
-                case ((int)Button.White):
+                case (Button.White):
                     SwitchValue(pinVal, null, WhiteBTN, whiteBrush, e);
                     break;
-                case ((int)Button.Red):
+                case (Button.Red):
                     SwitchValue(pinVal, redPin, RedBTN, redBrush, e);
                     break;
-                case ((int)Button.Green):
+                case (Button.Green):
                     SwitchValue(pinVal, greenPin, GreenBTN, greenBrush, e);
                     break;
-                case ((int)Button.Blue):
+                case (Button.Blue):
                     SwitchValue(pinVal, bluePin, BlueBTN, blueBrush, e);
                     break;
             }
         }
-    }
-
-    /// <summary>
-    /// Enum for button pin values
-    /// </summary>
-    enum Button
-    {
-        White = 12,
-        Red = 16,
-        Green = 20,
-        Blue = 21
-    }
-    
-    /// <summary>
-    /// Enum for led pin values
-    /// </summary>
-    enum Led
-    {
-        Red = 5,
-        Green = 6,
-        Blue = 13
     }
 }
